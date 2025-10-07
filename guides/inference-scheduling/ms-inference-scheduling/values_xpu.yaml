@@ -8,7 +8,7 @@ modelArtifacts:
   authSecretName: "llm-d-hf-token"
 
 accelerator:
-  type: "intel"
+  type: "intel-i915"
 
 # Routing configuration - required for inference-scheduling
 routing:
@@ -70,11 +70,9 @@ decode:
       limits:
         memory: 24Gi
         cpu: "8"
-        gpu.intel.com/i915: "1"
       requests:
         cpu: "4"
         memory: 12Gi
-        gpu.intel.com/i915: "1"
 
     mountModelVolume: true
     volumeMounts:
