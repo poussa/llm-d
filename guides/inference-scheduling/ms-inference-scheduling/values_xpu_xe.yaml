@@ -1,0 +1,86 @@
+multinode: false
+
+modelArtifacts:
+  uri: "pvc+hf://model-pvc/meta-llama/Llama-3.1-8B-Instruct"
+  name: "random"
+  size: 50Gi
+  authSecretName: "llm-d-hf-token"
+
+accelerator:
+  type: "intel"
+  resources:
+    intel: "gpu.intel.com/xe"
+
+routing:
+  servicePort: 8000
+  proxy:
+    image: ghcr.io/llm-d/llm-d-routing-sidecar:v0.3.0
+    connector: nixlv2
+    secure: false
+
+  inferencePool:
+    create: false
+
+  httpRoute:
+    create: false
+
+  epp:
+    create: false
+
+decode:
+  create: true
+  replicas: 1
+  monitoring:
+    podmonitor:
+      enabled: true
+      portName: "metrics"  # decode vLLM service port (from routing.proxy.targetPort)
+      path: "/metrics"
+      interval: "30s"
+  containers:
+  - name: "vllm"
+    image: "intel/vllm:0.10.0-xpu"
+    modelCommand: "imageDefault"
+    args:
+      - "--enforce-eager"
+      - "--dtype"
+      - "float16"
+      - "--block-size"
+      - "64"
+      - "--gpu-memory-util"
+      - "0.9"
+      - "--max-num-batched-tokens"
+      - "8192"
+      - "--max-model-len"
+      - "4096"
+      - "--quantization"
+      - "fp8"
+      - "--no-enable-prefix-caching"
+      - "--trust-remote-code"
+      - "--disable-log-requests"
+      - "--disable-sliding-window"
+    ports:
+      - containerPort: 5557
+        protocol: TCP
+      - containerPort: 8200
+        name: metrics
+        protocol: TCP
+    resources:
+      limits:
+        gpu.intel.com/xe: "1"
+      requests:
+        gpu.intel.com/xe: "1"
+    mountModelVolume: true
+    volumeMounts:
+    - name: metrics-volume
+      mountPath: /.config
+    - name: torch-compile-cache
+      mountPath: /.cache
+  volumes:
+  - name: metrics-volume
+    emptyDir: {}
+  - name: torch-compile-cache
+    emptyDir: {}
+
+# PD disabled in this example
+prefill:
+  create: false
