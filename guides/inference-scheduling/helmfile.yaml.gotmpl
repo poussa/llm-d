@@ -103,7 +103,7 @@ releases:
     {{- else if eq .Environment.Name "digitalocean" }}
       - ms-inference-scheduling/digitalocean-values.yaml
     {{- else if eq .Environment.Name "xpu" }}
-      - ms-inference-scheduling/values_xpu.yaml
+      - ms-inference-scheduling/values_xpu_xe.yaml
     {{- else }}
       - ms-inference-scheduling/values.yaml
     {{- end }}
