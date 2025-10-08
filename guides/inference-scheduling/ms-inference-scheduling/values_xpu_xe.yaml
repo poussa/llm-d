@@ -7,9 +7,7 @@ modelArtifacts:
   authSecretName: "llm-d-hf-token"
 
 accelerator:
-  type: "intel"
-  resources:
-    intel: "gpu.intel.com/xe"
+  type: intel-xe
 
 routing:
   servicePort: 8000
@@ -30,6 +28,8 @@ routing:
 decode:
   create: true
   replicas: 1
+  parallelism:
+    tensor: 1
   monitoring:
     podmonitor:
       enabled: true
@@ -64,11 +64,6 @@ decode:
       - containerPort: 8200
         name: metrics
         protocol: TCP
-    resources:
-      limits:
-        gpu.intel.com/xe: "1"
-      requests:
-        gpu.intel.com/xe: "1"
     mountModelVolume: true
     volumeMounts:
     - name: metrics-volume
