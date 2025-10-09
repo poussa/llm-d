@@ -2,7 +2,7 @@ multinode: false
 
 modelArtifacts:
   uri: "pvc+hf://model-pvc/meta-llama/Llama-3.1-8B-Instruct"
-  name: "random"
+  name: "meta-llama/Llama-3.1-8B-Instruct"
   size: 50Gi
   authSecretName: "llm-d-hf-token"
 
