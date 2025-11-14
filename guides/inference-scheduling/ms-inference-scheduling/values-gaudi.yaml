@@ -1,9 +1,9 @@
-# Intel Gaudi configuration using imageDefault mode
-# This configuration is for single-node Gaudi setup without prefill
-# Models are used from prepopulated model-pvc PVC using Hugging Face Hub
-# Gaudi warmup is skipped for startup speed
-# Custom vLLM image for Gaudi is used for now
-# Use DRA instead of device plugins
+# Intel Gaudi configuration using imageDefault mode.
+# This configuration is for single-node Gaudi setup without prefill.
+# Models are used from prepopulated model-pvc PVC using Hugging Face Hub.
+# Gaudi warmup is skipped for startup speed.
+# Custom vLLM image for Gaudi is used for now.
+# Use DRA instead of device plugins.
 
 modelArtifacts:
   name: meta-llama/Llama-3.1-8B-Instruct
