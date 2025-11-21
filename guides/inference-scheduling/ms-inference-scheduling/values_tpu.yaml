@@ -10,6 +10,13 @@ modelArtifacts:
 accelerator:
   type: google
 
+routing:
+  servicePort: 8000
+  proxy:
+    image: ghcr.io/llm-d/llm-d-routing-sidecar:v0.3.0
+    connector: nixlv2
+    secure: false
+
 decode:
   parallelism:
     tensor: 8

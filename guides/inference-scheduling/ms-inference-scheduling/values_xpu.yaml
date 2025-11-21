@@ -10,6 +10,13 @@ modelArtifacts:
 accelerator:
   type: "intel-i915"
 
+routing:
+  servicePort: 8000
+  proxy:
+    image: ghcr.io/llm-d/llm-d-routing-sidecar:v0.3.0
+    connector: nixlv2
+    secure: false
+
 decode:
   create: true
   replicas: 2
