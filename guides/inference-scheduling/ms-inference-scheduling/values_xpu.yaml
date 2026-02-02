@@ -7,8 +7,9 @@ modelArtifacts:
   size: 10Gi
   authSecretName: "llm-d-hf-token"
 
-accelerator:  # controlls specialized hardware Type
-  type: "intel-i915"
+dra:  # controlls specialized hardware Type
+  enabled: true
+  type: "intel"
 
 routing:
   proxy:
