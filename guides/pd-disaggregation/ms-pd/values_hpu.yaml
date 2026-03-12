@@ -56,6 +56,7 @@ decode:
       - "0.9"
       - "--kv-transfer-config"
       - '{"kv_connector":"NixlConnector","kv_role":"kv_both","kv_buffer_device":"cpu"}'
+      - "--disable-access-log-for-endpoints=/health,/metrics,/v1/models"
     env:
       - name: OMPI_MCA_btl_vader_single_copy_mechanism
         value: "none"
@@ -69,8 +70,6 @@ decode:
             fieldPath: status.podIP
       - name: VLLM_NIXL_SIDE_CHANNEL_PORT
         value: "5600"
-      - name: VLLM_LOGGING_LEVEL
-        value: "DEBUG"
       - name: VLLM_SKIP_WARMUP
         value: "true"
       - name: PT_HPU_LAZY_MODE
@@ -154,6 +153,7 @@ prefill:
       - "0.9"
       - "--kv-transfer-config"
       - '{"kv_connector":"NixlConnector","kv_role":"kv_both","kv_buffer_device":"cpu"}'
+      - "--disable-access-log-for-endpoints=/health,/metrics,/v1/models"
     env:
       - name: OMPI_MCA_btl_vader_single_copy_mechanism
         value: "none"
@@ -167,8 +167,6 @@ prefill:
             fieldPath: status.podIP
       - name: VLLM_NIXL_SIDE_CHANNEL_PORT
         value: "5600"
-      - name: VLLM_LOGGING_LEVEL
-        value: "DEBUG"
       - name: VLLM_SKIP_WARMUP
         value: "true"
       - name: PT_HPU_LAZY_MODE

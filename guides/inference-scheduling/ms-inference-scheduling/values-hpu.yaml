@@ -61,6 +61,7 @@ decode:
         - --max-num-seqs=256
         - --max-model-len=2048
         - --max-num-batched-token=16000
+        - --disable-access-log-for-endpoints=/health,/metrics,/v1/models
       env:
         - name: OMPI_MCA_btl_vader_single_copy_mechanism
           value: "none"
