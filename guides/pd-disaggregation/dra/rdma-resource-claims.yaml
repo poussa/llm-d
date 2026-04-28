@@ -1,0 +1,24 @@
+ apiVersion: resource.k8s.io/v1
+ kind: DeviceClass
+ metadata:
+   name: rdma-net
+ spec:
+   selectors:
+   - cel:
+        expression: device.driver == "dra.net"
+---
+apiVersion: resource.k8s.io/v1
+kind: ResourceClaimTemplate
+metadata:
+  name: rdma-net-template
+spec:
+  spec:
+    devices:
+      requests:
+        - name: rdma-net-interface
+          exactly:
+            deviceClassName: rdma-net
+            selectors:
+              - cel:
+                  expression: device.attributes["dra.net"].rdma == true
+            count: 1
