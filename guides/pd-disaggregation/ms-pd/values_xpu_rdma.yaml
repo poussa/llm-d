@@ -98,8 +98,6 @@ decode:
             - "SYS_RAWIO"
             - "NET_ADMIN"
             - "NET_RAW"
-        runAsUser: 0
-        runAsGroup: 0
       ports:
         - containerPort: 8200
           name: vllm
@@ -219,8 +217,6 @@ prefill:
             - "SYS_RAWIO"
             - "NET_ADMIN"
             - "NET_RAW"
-        runAsUser: 0
-        runAsGroup: 0
       ports:
         - containerPort: 8000
           name: vllm
